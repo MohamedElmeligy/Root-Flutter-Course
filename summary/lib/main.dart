@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:summary/second_page.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -17,6 +19,46 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Map> messages = [
+    {
+      "name": "Ahmed",
+      "lastMessage": "Good Morning, how is your day?",
+      "date": "11:00 PM",
+      "unseenCount": "6",
+    },
+    {
+      "name": "Mohammed",
+      "lastMessage": "Good Morning, how is your day?",
+      "date": "11:00 PM",
+      "unseenCount": "6",
+    },
+    {
+      "name": "Mohaned",
+      "lastMessage": "Good Morning, how is your day?",
+      "date": "11:00 PM",
+      "unseenCount": "6",
+    },
+  ];
+
+  void addMessage(
+      String name, String lastMessage, String date, String unseenCount) {
+    messages.add(
+      {
+        "name": name,
+        "lastMessage": lastMessage,
+        "date": date,
+        "unseenCount": unseenCount,
+      },
+    );
+    setState(() {});
+  }
+
+
+  void deleteMessage(int index) {
+    messages.removeAt(index);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,17 +71,29 @@ class _HomePageState extends State<HomePage> {
           Icon(Icons.search),
         ],
       ),
-      body: Column(
-        children: [
-          MessageTile(
-              "Ahmed", "Good Morning, how is your day?", "11:00 PM", "9"),
-          Divider(height: 5),
-          MessageTile(
-              "Mohamed", "Good Morning, how is your day?", "11:00 PM", "9"),
-          Divider(height: 5),
-          MessageTile(
-              "Nada", "Good Morning, how is your day?", "11:00 PM", "9"),
-        ],
+      body: ListView.builder(
+        itemCount: messages.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onLongPress: () {
+              deleteMessage(index);
+            },
+            onTap: () {
+              addMessage(
+                messages[index]["name"],
+                messages[index]["lastMessage"],
+                messages[index]["date"],
+                messages[index]["unseenCount"],
+              );
+            },
+            child: MessageTile(
+              messages[index]["name"],
+              messages[index]["lastMessage"],
+              messages[index]["date"],
+              messages[index]["unseenCount"],
+            ),
+          );
+        },
       ),
     );
   }
