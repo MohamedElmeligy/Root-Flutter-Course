@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
+  ItemCard({this.item});
+
+  final Map<String,dynamic> item;
+  
+
   @override
   Widget build(BuildContext context) {
     final double sw = MediaQuery.of(context).size.width;
@@ -33,7 +38,7 @@ class ItemCard extends StatelessWidget {
                         shape: BoxShape.circle,
                         color: Colors.red,
                       ),
-                      child: Center(child: Text("17%")),
+                      child: Center(child: Text("${item['discount'] * 100}%")),
                     ),
                   ),
                 ],
@@ -41,7 +46,7 @@ class ItemCard extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              "Dish-Washing Machine with very high performance",
+              item['description'],
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -49,12 +54,13 @@ class ItemCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  "12000 L.E",
+                  "${item['price'] - (item['price'] * item['discount'])}",
+                  
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(width: 5),
                 Text(
-                  "15000 L.E",
+                  item['price'].toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.grey,
@@ -65,18 +71,20 @@ class ItemCard extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              "Or 500 L.E/month",
+              item['rate'],
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 5),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-              decoration: BoxDecoration(
-                color: Colors.orange,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text("Without Intrests"),
-            ),
+            item['isInterest']
+                ? Container(
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.orange,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text("Without Intrests"),
+                  )
+                : Container(),
           ],
         ),
       ),

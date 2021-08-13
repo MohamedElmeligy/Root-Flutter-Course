@@ -1,13 +1,51 @@
 import 'package:flutter/material.dart';
 
 import 'package:multi_screen/components/item_card.dart';
+import 'package:multi_screen/screens/item_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+List<Map<String, dynamic>> items = [
+  {
+    "description": "This is a description  about  anything anything",
+    "discount": 0.15,
+    "price": 750,
+    "rate": "Or 500 L.E/month",
+    "isInterest": true,
+  },
+  {
+    "description": "This is a description  about anything",
+    "discount": 0.3,
+    "price": 15000,
+    "rate": "Or 500 L.E/month",
+    "isInterest": true
+  },
+  {
+    "description": "This is a description  about anything anything anything",
+    "discount": 0.3,
+    "price": 175000,
+    "rate": "Or 500 L.E/month",
+    "isInterest": true,
+  },
+  {
+    "description": "This is a description  about anything",
+    "discount": 0.3,
+    "price": 1000,
+    "rate": "Or 500 L.E/month",
+    "isInterest": true,
+  },
+];
+
 class _HomeScreenState extends State<HomeScreen> {
+  //Description
+  //discount
+  //price
+  //rate
+  //isInterest
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,15 +123,35 @@ class Partition extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: [
                 Container(
-                    width: sw * 0.4, height: sh * 0.35, child: ItemCard()),
+                  width: sw * 0.4,
+                  height: sh * 0.35,
+                  child: ItemCard(
+                    item: items[0],
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ItemScreen()));
+                  },
+                  child: Container(
+                    width: sw * 0.4,
+                    height: sh * 0.35,
+                    child: ItemCard(item: items[0]),
+                  ),
+                ),
                 Container(
-                    width: sw * 0.4, height: sh * 0.35, child: ItemCard()),
+                    width: sw * 0.4,
+                    height: sh * 0.35,
+                    child: ItemCard(item: items[1])),
                 Container(
-                    width: sw * 0.4, height: sh * 0.35, child: ItemCard()),
+                    width: sw * 0.4,
+                    height: sh * 0.35,
+                    child: ItemCard(item: items[2])),
                 Container(
-                    width: sw * 0.4, height: sh * 0.35, child: ItemCard()),
-                Container(
-                    width: sw * 0.4, height: sh * 0.35, child: ItemCard()),
+                    width: sw * 0.4,
+                    height: sh * 0.35,
+                    child: ItemCard(item: items[3])),
               ],
             ),
           )
